@@ -1,0 +1,23 @@
+# Credenciais (NUNCA versionar)
+secrets.h
+
+# Arduino / build
+*.bin
+*.elf
+*.hex
+build/
+.build/
+
+# Python / notebook
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Node-RED (dados locais)
+.node-red/
+node_modules/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
