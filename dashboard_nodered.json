@@ -1,0 +1,724 @@
+[
+  {
+    "id": "tab_c213",
+    "type": "tab",
+    "label": "Esteira C213",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "mqtt_broker",
+    "type": "mqtt-broker",
+    "name": "HiveMQ-C213",
+    "broker": "b6c228153f69435486ef56fc32db30fc.s1.eu.hivemq.cloud",
+    "port": "8883",
+    "tls": "tls_cfg",
+    "clientid": "nodered-c213",
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "tls_cfg",
+    "type": "tls-config",
+    "name": "hivemq-tls",
+    "verifyservercert": false,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "ui_base",
+    "type": "ui_base",
+    "theme": {
+      "name": "theme-dark"
+    }
+  },
+  {
+    "id": "ui_tab1",
+    "type": "ui_tab",
+    "name": "Esteira",
+    "icon": "settings",
+    "order": 1
+  },
+  {
+    "id": "grp_vel",
+    "type": "ui_group",
+    "name": "Velocidade",
+    "tab": "ui_tab1",
+    "order": 1,
+    "width": "6"
+  },
+  {
+    "id": "grp_ctrl",
+    "type": "ui_group",
+    "name": "Controle",
+    "tab": "ui_tab1",
+    "order": 2,
+    "width": "6"
+  },
+  {
+    "id": "grp_prod",
+    "type": "ui_group",
+    "name": "Producao e Supervisao",
+    "tab": "ui_tab1",
+    "order": 3,
+    "width": "6"
+  },
+  {
+    "id": "p_rpm",
+    "type": "function",
+    "name": "parse rpm",
+    "func": "msg.payload=parseFloat(msg.payload);return msg;",
+    "outputs": 1,
+    "x": 300,
+    "y": 60,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "g_rpm",
+        "c_rpm"
+      ]
+    ]
+  },
+  {
+    "id": "p_pwm",
+    "type": "function",
+    "name": "parse pwm",
+    "func": "msg.payload=parseFloat(msg.payload);return msg;",
+    "outputs": 1,
+    "x": 300,
+    "y": 120,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "g_pwm"
+      ]
+    ]
+  },
+  {
+    "id": "p_err",
+    "type": "function",
+    "name": "parse erro",
+    "func": "msg.payload=parseFloat(msg.payload);return msg;",
+    "outputs": 1,
+    "x": 300,
+    "y": 180,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_err"
+      ]
+    ]
+  },
+  {
+    "id": "p_car",
+    "type": "function",
+    "name": "parse carga",
+    "func": "msg.payload=parseFloat(msg.payload);return msg;",
+    "outputs": 1,
+    "x": 300,
+    "y": 240,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_car"
+      ]
+    ]
+  },
+  {
+    "id": "in_rpm",
+    "type": "mqtt in",
+    "name": "esteira/rpm",
+    "topic": "esteira/rpm",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 60,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "p_rpm"
+      ]
+    ]
+  },
+  {
+    "id": "in_pwm",
+    "type": "mqtt in",
+    "name": "esteira/pwm",
+    "topic": "esteira/pwm",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 120,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "p_pwm"
+      ]
+    ]
+  },
+  {
+    "id": "in_err",
+    "type": "mqtt in",
+    "name": "esteira/erro",
+    "topic": "esteira/erro",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 180,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "p_err"
+      ]
+    ]
+  },
+  {
+    "id": "in_car",
+    "type": "mqtt in",
+    "name": "esteira/carga",
+    "topic": "esteira/carga",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 240,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "p_car"
+      ]
+    ]
+  },
+  {
+    "id": "in_prd",
+    "type": "mqtt in",
+    "name": "esteira/produtos",
+    "topic": "esteira/produtos",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 300,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_prd"
+      ]
+    ]
+  },
+  {
+    "id": "in_tam",
+    "type": "mqtt in",
+    "name": "esteira/tamanho",
+    "topic": "esteira/tamanho",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 360,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_tam"
+      ]
+    ]
+  },
+  {
+    "id": "in_thr",
+    "type": "mqtt in",
+    "name": "esteira/throughput",
+    "topic": "esteira/throughput",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 420,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_thr"
+      ]
+    ]
+  },
+  {
+    "id": "in_sts",
+    "type": "mqtt in",
+    "name": "esteira/status",
+    "topic": "esteira/status",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 480,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_sts"
+      ]
+    ]
+  },
+  {
+    "id": "in_alr",
+    "type": "mqtt in",
+    "name": "esteira/alerta",
+    "topic": "esteira/alerta",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 540,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_alr"
+      ]
+    ]
+  },
+  {
+    "id": "g_rpm",
+    "type": "ui_gauge",
+    "name": "RPM",
+    "group": "grp_vel",
+    "order": 1,
+    "width": "6",
+    "height": "4",
+    "gtype": "gage",
+    "title": "Velocidade (RPM)",
+    "label": "rpm",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "1200",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "seg1": "400",
+    "seg2": "900",
+    "x": 520,
+    "y": 60,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "c_rpm",
+    "type": "ui_chart",
+    "name": "RPM x tempo",
+    "group": "grp_vel",
+    "order": 2,
+    "width": "12",
+    "height": "5",
+    "label": "RPM x tempo",
+    "chartType": "line",
+    "removeOlder": "5",
+    "removeOlderUnit": "60",
+    "ymin": "0",
+    "ymax": "1200",
+    "x": 520,
+    "y": 100,
+    "z": "tab_c213",
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "g_pwm",
+    "type": "ui_gauge",
+    "name": "PWM",
+    "group": "grp_vel",
+    "order": 3,
+    "width": "6",
+    "height": "4",
+    "gtype": "gage",
+    "title": "Atuacao PWM (%)",
+    "label": "%",
+    "format": "{{value}}",
+    "min": "0",
+    "max": "100",
+    "colors": [
+      "#00b500",
+      "#e6e600",
+      "#ca3838"
+    ],
+    "x": 520,
+    "y": 140,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_err",
+    "type": "ui_text",
+    "name": "Erro",
+    "group": "grp_vel",
+    "order": 4,
+    "width": "6",
+    "height": "1",
+    "label": "Erro (RPM)",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 520,
+    "y": 180,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "btn_sp1",
+    "type": "ui_button",
+    "name": "SP1",
+    "group": "grp_ctrl",
+    "order": 2,
+    "width": "4",
+    "height": "1",
+    "label": "SP1 150",
+    "topic": "esteira/cmd/setpoint",
+    "payload": "150",
+    "payloadType": "str",
+    "x": 510,
+    "y": 280,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "btn_sp2",
+    "type": "ui_button",
+    "name": "SP2",
+    "group": "grp_ctrl",
+    "order": 3,
+    "width": "4",
+    "height": "1",
+    "label": "SP2 500",
+    "topic": "esteira/cmd/setpoint",
+    "payload": "500",
+    "payloadType": "str",
+    "x": 510,
+    "y": 320,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "btn_sp3",
+    "type": "ui_button",
+    "name": "SP3",
+    "group": "grp_ctrl",
+    "order": 4,
+    "width": "4",
+    "height": "1",
+    "label": "SP3 900",
+    "topic": "esteira/cmd/setpoint",
+    "payload": "900",
+    "payloadType": "str",
+    "x": 510,
+    "y": 360,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "sl_car",
+    "type": "ui_slider",
+    "name": "Carga",
+    "label": "Carga (kg)",
+    "group": "grp_ctrl",
+    "order": 5,
+    "width": "12",
+    "height": "1",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "topic": "esteira/cmd/carga",
+    "x": 510,
+    "y": 400,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "btn_emg",
+    "type": "ui_button",
+    "name": "EMERGENCIA",
+    "group": "grp_ctrl",
+    "order": 6,
+    "width": "6",
+    "height": "1",
+    "label": "PARAR (Emerg.)",
+    "color": "white",
+    "bgcolor": "#ca3838",
+    "topic": "esteira/cmd/emergencia",
+    "payload": "1",
+    "payloadType": "str",
+    "x": 520,
+    "y": 440,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "btn_rst",
+    "type": "ui_button",
+    "name": "REARMAR",
+    "group": "grp_ctrl",
+    "order": 7,
+    "width": "6",
+    "height": "1",
+    "label": "REARMAR",
+    "color": "white",
+    "bgcolor": "#00803a",
+    "topic": "esteira/cmd/emergencia",
+    "payload": "0",
+    "payloadType": "str",
+    "x": 520,
+    "y": 480,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "out_cmd",
+    "type": "mqtt out",
+    "name": "comandos",
+    "topic": "",
+    "qos": "0",
+    "retain": "",
+    "broker": "mqtt_broker",
+    "x": 760,
+    "y": 360,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_prd",
+    "type": "ui_text",
+    "name": "Produtos",
+    "group": "grp_prod",
+    "order": 1,
+    "width": "6",
+    "height": "1",
+    "label": "Produtos contados",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 520,
+    "y": 300,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_tam",
+    "type": "ui_text",
+    "name": "Tamanho",
+    "group": "grp_prod",
+    "order": 2,
+    "width": "6",
+    "height": "1",
+    "label": "Ultimo tamanho (cm)",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 760,
+    "y": 300,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_thr",
+    "type": "ui_text",
+    "name": "Throughput",
+    "group": "grp_prod",
+    "order": 3,
+    "width": "6",
+    "height": "1",
+    "label": "Throughput (un/min)",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 760,
+    "y": 420,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_car",
+    "type": "ui_text",
+    "name": "Carga atual",
+    "group": "grp_prod",
+    "order": 4,
+    "width": "6",
+    "height": "1",
+    "label": "Carga atual (kg)",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 760,
+    "y": 240,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_sts",
+    "type": "ui_text",
+    "name": "Status",
+    "group": "grp_prod",
+    "order": 5,
+    "width": "12",
+    "height": "1",
+    "label": "STATUS",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 520,
+    "y": 480,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "t_alr",
+    "type": "ui_text",
+    "name": "Alerta",
+    "group": "grp_prod",
+    "order": 6,
+    "width": "12",
+    "height": "1",
+    "label": "Alerta",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 760,
+    "y": 540,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "in_cls",
+    "type": "mqtt in",
+    "name": "esteira/classe",
+    "topic": "esteira/classe",
+    "qos": "0",
+    "broker": "mqtt_broker",
+    "x": 110,
+    "y": 570,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "t_cls"
+      ]
+    ]
+  },
+  {
+    "id": "t_cls",
+    "type": "ui_text",
+    "name": "Classe",
+    "group": "grp_prod",
+    "order": 7,
+    "width": "6",
+    "height": "1",
+    "label": "Classe da caixa",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 760,
+    "y": 570,
+    "z": "tab_c213",
+    "wires": []
+  },
+  {
+    "id": "btn_auto_on",
+    "type": "ui_button",
+    "name": "AUTO ON",
+    "group": "grp_ctrl",
+    "order": 8,
+    "width": "6",
+    "height": "1",
+    "label": "Contagem AUTO",
+    "color": "white",
+    "bgcolor": "#1f78b4",
+    "topic": "esteira/cmd/auto",
+    "payload": "1",
+    "payloadType": "str",
+    "x": 520,
+    "y": 520,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "btn_auto_off",
+    "type": "ui_button",
+    "name": "AUTO OFF",
+    "group": "grp_ctrl",
+    "order": 9,
+    "width": "6",
+    "height": "1",
+    "label": "Contagem MANUAL",
+    "color": "white",
+    "bgcolor": "#777777",
+    "topic": "esteira/cmd/auto",
+    "payload": "0",
+    "payloadType": "str",
+    "x": 760,
+    "y": 520,
+    "z": "tab_c213",
+    "wires": [
+      [
+        "out_cmd"
+      ]
+    ]
+  },
+  {
+    "id": "grp_fuzzy",
+    "type": "ui_group",
+    "name": "Logica Fuzzy",
+    "tab": "ui_tab1",
+    "order": 4,
+    "width": "12",
+    "collapse": false
+  },
+  {
+    "id": "tpl_mf",
+    "type": "ui_template",
+    "name": "Pertinencia",
+    "group": "grp_fuzzy",
+    "order": 1,
+    "width": "6",
+    "height": "5",
+    "format": "<div style='font-family:sans-serif'>\n<b>Funcoes de Pertinencia - Erro (RPM)</b>\n<svg viewBox='0 0 520 160' style='width:100%;max-width:520px'>\n  <!-- Axes -->\n  <line x1='40' y1='130' x2='510' y2='130' stroke='#888'/>\n  <line x1='40' y1='20' x2='40' y2='130' stroke='#888'/>\n  <!-- Axis labels -->\n  <text x='40' y='148' font-size='10' text-anchor='middle'>-500</text>\n  <text x='87' y='148' font-size='10' text-anchor='middle'>-400</text>\n  <text x='181' y='148' font-size='10' text-anchor='middle'>-200</text>\n  <text x='275'    y='148' font-size='10' text-anchor='middle'>0</text>\n  <text x='369'  y='148' font-size='10' text-anchor='middle'>+200</text>\n  <text x='463'  y='148' font-size='10' text-anchor='middle'>+400</text>\n  <text x='510'  y='148' font-size='10' text-anchor='middle'>+500</text>\n  <!-- NG: trapEsq(-400,-200) -->\n  <polyline points='40,20 87,20 181,130' fill='none' stroke='#1f77b4' stroke-width='2'/>\n  <!-- NP: tri(-400,-200,0) -->\n  <polyline points='87,130 181,20 275,130' fill='none' stroke='#17becf' stroke-width='2'/>\n  <!-- Z: tri(-100,0,100) -->\n  <polyline points='228,130 275,20 322,130' fill='none' stroke='#2ca02c' stroke-width='2'/>\n  <!-- PP: tri(0,200,400) -->\n  <polyline points='275,130 369,20 463,130' fill='none' stroke='#ff7f0e' stroke-width='2'/>\n  <!-- PG: trapDir(200,400) -->\n  <polyline points='369,130 463,20 510,20' fill='none' stroke='#d62728' stroke-width='2'/>\n</svg>\n<div style='font-size:11px'>\n<span style='color:#1f77b4'>&#9632; NG</span>&nbsp;\n<span style='color:#17becf'>&#9632; NP</span>&nbsp;\n<span style='color:#2ca02c'>&#9632; Z</span>&nbsp;\n<span style='color:#ff7f0e'>&#9632; PP</span>&nbsp;\n<span style='color:#d62728'>&#9632; PG</span>\n</div></div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 520,
+    "y": 640,
+    "z": "tab_c213",
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "tpl_rules",
+    "type": "ui_template",
+    "name": "Regras",
+    "group": "grp_fuzzy",
+    "order": 2,
+    "width": "6",
+    "height": "5",
+    "format": "<div style='font-family:sans-serif'>\n<b>Tabela de Regras (Erro x dErro) - saida &Delta;PWM</b>\n<table style='border-collapse:collapse;width:100%;font-size:12px;text-align:center'>\n<tr style='background:#2E5C8A;color:#fff'><th>e \\ &Delta;e</th><th>NG</th><th>NP</th><th>Z</th><th>PP</th><th>PG</th></tr>\n<tr><td style='background:#2E5C8A;color:#fff'>NG</td><td>-30</td><td>-30</td><td>-30</td><td>-15</td><td>0</td></tr>\n<tr><td style='background:#2E5C8A;color:#fff'>NP</td><td>-30</td><td>-15</td><td>-15</td><td>0</td><td>+15</td></tr>\n<tr><td style='background:#2E5C8A;color:#fff'>Z</td><td>-15</td><td>-15</td><td>0</td><td>+15</td><td>+15</td></tr>\n<tr><td style='background:#2E5C8A;color:#fff'>PP</td><td>-15</td><td>0</td><td>+15</td><td>+15</td><td>+30</td></tr>\n<tr><td style='background:#2E5C8A;color:#fff'>PG</td><td>0</td><td>+15</td><td>+30</td><td>+30</td><td>+30</td></tr>\n</table>\n<div style='font-size:11px;margin-top:4px'>Regra ativa destacada conforme erro atual (ver leitura no painel).</div>\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 520,
+    "y": 700,
+    "z": "tab_c213",
+    "wires": [
+      []
+    ]
+  }
+]
