@@ -8,7 +8,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <ESP32Servo.h>
 
-// ───────────── PINOS (reaproveitados + novos) ─────────────
+// ───────────── PINOS ─────────────
 #define POT_PIN        34   // (reuso) potenciometro -> carga
 #define MOTOR_PIN      18   // (reuso) atuador: servo OU driver de motor CC
 #define LED_VERDE      25   // (reuso)
@@ -72,7 +72,6 @@ const int TOM_A = 880, TOM_B = 1320;       // Hz alternados
 
 // ================================================================
 //  CONTROLADOR FUZZY REAL  (pertinencia + min + centroide)
-//  -> corrige o ponto 4: agora ha grau de pertinencia e interpolacao
 // ================================================================
 float tri(float x,float a,float b,float c){
   if(x<=a||x>=c) return 0; if(x==b) return 1;
@@ -192,8 +191,6 @@ void supervisao(){
 // ================================================================
 void atuarMotor(){
   // SERVO (visual no Wokwi): angulo proporcional ao PWM.
-  // Em hardware real, recomenda-se MOTOR CC + motorredutor + driver:
-  //   trocar por ledcWrite(canal, map(pwm,0,100,0,255));  // duty -> velocidade
   int ang = map((int)pwm,0,100,0,180);
   if(emergencia) ang=0;
   motor.write(ang);
