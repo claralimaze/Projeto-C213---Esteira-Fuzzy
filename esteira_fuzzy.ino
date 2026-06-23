@@ -1,21 +1,6 @@
 // ================================================================
 //  PROJETO FINAL C213 - Esteira Inteligente com Controle Fuzzy
-//  Versao CONSOLIDADA (reaproveita o mapeamento de pinos do grupo)
-//  Grupo: [NOME 1] / [NOME 2] / [NOME 3]   -  INATEL 2025
 // ================================================================
-//  ESTE ARQUIVO UNIFICA:
-//   - a base do grupo (servo no D18, LEDs 25/26/27, pot D34, I2C 21/22)
-//   - + buzzer, HC-SR04 e botao de emergencia (novos, em pinos livres)
-//   - + controlador FUZZY REAL (pertinencia + centroide)
-//   - + alarme sonoro no buzzer  (corrige o ponto 1)
-//   - + travamento so apos 4 min  (corrige o ponto 2)
-//   - + MQTT/HiveMQ p/ dashboard Node-RED (entregavel obrigatorio, 15 pts)
-// ----------------------------------------------------------------
-//  DISPLAY: este codigo usa LCD I2C 16x2 (como na sua foto).
-//  Se voces usarem o OLED SSD1306, ver o bloco comentado "OPCAO OLED".
-//  SEGURANCA: nao versionar a senha. Use secrets.h no .gitignore.
-// ================================================================
-
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
